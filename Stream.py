@@ -6,7 +6,7 @@
 from tweepy.streaming import StreamListener
 from tweepy import OAuthHandler
 from tweepy import Stream
-
+import json
 # Use base64 to encode the tweet text to base64 before saving the data to file.
 # We do this because the text could contain the delimiters used in
 # your CSV file, which could affect reading of the CSV.
@@ -44,11 +44,10 @@ class StdOutListener(StreamListener):
             # Write code here to process the "data"
             # It is in JSON format.
             # To write to the tweet_store file, use the following line:
-            # self.tweet_store.write("your data")
+            tweet_store.write(data)
 
             # To encode the text using the base64 library, use:
-            # text = base64.b64encode("your data")
-            pass # Remove this
+            text = base64.b64encode(data)
         except AttributeError:
             pass
         return True
@@ -68,8 +67,7 @@ def main():
     stream = Stream(auth, listener)
 
     # This line filters Twitter Streams to capture data by the keywords: 'python', 'pandas', 'data science'
-    stream.filter(track=['coronavirus', 'COVID-19', 'SARS-CoV-2', 'novel
-coronavirus', '2019-nCoV'])
+    stream.filter(track=['coronavirus', 'COVID-19', 'SARS-CoV-2', 'novel coronavirus', '2019-nCoV'])
 
 # Invoke the main function to start the program
 main()
