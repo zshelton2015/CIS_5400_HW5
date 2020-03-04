@@ -38,7 +38,6 @@ class StdOutListener(StreamListener):
 
     def on_data(self, data):
         print(data)
-
             # Some tweets may be missing the required keys.
             # As a precaution use try and except to catch the error.
         try:
@@ -69,7 +68,8 @@ def main():
     stream = Stream(auth, listener)
 
     # This line filters Twitter Streams to capture data by the keywords: 'python', 'pandas', 'data science'
-    stream.filter(track=['python', 'pandas', 'data science'])
+    stream.filter(track=['coronavirus', 'COVID-19', 'SARS-CoV-2', 'novel
+coronavirus', '2019-nCoV'])
 
 # Invoke the main function to start the program
 main()
