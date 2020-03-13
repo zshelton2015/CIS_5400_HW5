@@ -32,10 +32,8 @@ class StdOutListener(StreamListener):
     This is a basic listener that just prints received tweets to standard output.
     Update this code to extract the data required for the assignment
     """
-
     # the file handle to a file where you will save the streamed tweets
-    tweet_store = open("tweet_store.csv", "w")
-
+    tweet_store = open("tweet_store.csv", "w+")
     def on_data(self, data):
         print(data)
             # Some tweets may be missing the required keys.
@@ -44,14 +42,13 @@ class StdOutListener(StreamListener):
             # Write code here to process the "data"
             # It is in JSON format.
             # To write to the tweet_store file, use the following line:
-            tweet_store.write(data)
+            self.tweet_store.write(data)
 
             # To encode the text using the base64 library, use:
-            text = base64.b64encode(data)
+            #text = base64.b64encode(data)
         except AttributeError:
             pass
         return True
-
     def on_error(self, status):
         print(status)
 
@@ -67,7 +64,7 @@ def main():
     stream = Stream(auth, listener)
 
     # This line filters Twitter Streams to capture data by the keywords: 'python', 'pandas', 'data science'
-    stream.filter(track=['coronavirus', 'COVID-19', 'SARS-CoV-2', 'novel coronavirus', '2019-nCoV'])
+    stream.filter(track=['coronavirus', 'COVID-19', 'SARS-CoV-2', 'novel coronavirus', '2019-nCoV','COVID19'])
 
 # Invoke the main function to start the program
 main()
